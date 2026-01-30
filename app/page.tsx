@@ -1,135 +1,102 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Mail } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Navbar from '@/components/navbar'
 
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
-
-const itemVariants = {
+const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
+  visible: { 
+    opacity: 1, 
     y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white dark:bg-zinc-950">
+    <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors">
       <Navbar />
-      <div className="mx-auto max-w-7xl px-6 pt-28 pb-12 sm:px-8 sm:pt-32 sm:pb-16 lg:px-12 lg:pt-40 lg:pb-24">
-        {/* Hero Section */}
-        <motion.section
+
+      {/* Hero Section */}
+      <section className="mx-auto max-w-7xl px-6 pt-24 pb-20 sm:pt-32 min-h-[85vh] flex items-center justify-center">
+        <motion.div
           initial="hidden"
           animate="visible"
-          variants={containerVariants}
-          className="mb-24 sm:mb-32"
+          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+          className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20"
         >
-          <motion.div variants={itemVariants} className="mb-6">
-            <h1 className="text-4xl font-semibold text-zinc-900 dark:text-white sm:text-5xl lg:text-6xl">
-              Tyler Quach
-            </h1>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="mb-4">
-            <p className="text-xl text-zinc-700 dark:text-zinc-300 sm:text-2xl lg:text-3xl">
-              Computer Science Student at Oregon State University.
-            </p>
-          </motion.div>
-          
-          <motion.div variants={itemVariants} className="mb-8">
-            <p className="text-lg text-zinc-600 dark:text-zinc-400 sm:text-xl">
-              Specializing in Full-Stack Development and Machine Learning Research.
-            </p>
-          </motion.div>
-
+          {/* Image Section */}
           <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-4"
+            variants={fadeInUp}
+            className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[28rem] md:h-[28rem] flex-shrink-0"
           >
-            <Link
-              href="https://github.com/Splash791"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2 text-sm text-zinc-700 transition-all hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-white"
-            >
-              <Github className="h-4 w-4" />
-              <span>GitHub</span>
-              <ExternalLink className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
-            </Link>
-            <Link
-              href="https://linkedin.com/in/tyler-quach-"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2 text-sm text-zinc-700 transition-all hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-white"
-            >
-              <Linkedin className="h-4 w-4" />
-              <span>LinkedIn</span>
-              <ExternalLink className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
-            </Link>
-            <Link
-              href="mailto:tylerquach17@gmail.com"
-              className="group flex items-center gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2 text-sm text-zinc-700 transition-all hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-white"
-            >
-              <Mail className="h-4 w-4" />
-              <span>Email</span>
-            </Link>
-          </motion.div>
-        </motion.section>
-
-        {/* Photo Section / About Me */}
-        <motion.section
-          id="about"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={containerVariants}
-          className="mb-24 sm:mb-32"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="relative mx-auto aspect-[4/3] w-full max-w-2xl overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30"
-          >
-            {/* Placeholder - Replace with your photo */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-900/50 dark:to-zinc-950/50">
-              <div className="text-center">
-                <p className="font-mono text-sm text-zinc-500 dark:text-zinc-500">
-                  Add your photo here
-                </p>
-                <p className="mt-2 font-mono text-xs text-zinc-600 dark:text-zinc-600">
-                  Place your image in /public/photo.jpg or update the src below
-                </p>
+            <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-2xl">
+              {/* Placeholder - replace with your image */}
+              <div className="absolute inset-0 flex items-center justify-center text-zinc-400 dark:text-zinc-600">
+                <p className="text-base font-mono">Your Photo</p>
               </div>
+              {/* Uncomment when you have an image */}
+              {/* <Image
+                src="/photo.jpg"
+                alt="Tyler Quach"
+                fill
+                className="object-cover"
+                priority
+              /> */}
             </div>
-            {/* Uncomment and update the path when you have your photo */}
-            {/* 
-            <Image
-              src="/photo.jpg"
-              alt="Tyler Quach"
-              fill
-              className="object-cover"
-              priority
-            />
-            */}
           </motion.div>
-        </motion.section>
 
-      </div>
+          {/* Text Content */}
+          <div className="flex-1 text-center md:text-left">
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight mb-6 text-zinc-900 dark:text-white"
+            >
+              Tyler Quach
+            </motion.h1>
+
+            <motion.p 
+              variants={fadeInUp}
+              className="text-2xl sm:text-3xl text-zinc-500 dark:text-zinc-400 mb-8"
+            >
+              CS Student @ Oregon State University
+            </motion.p>
+
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto md:mx-0 mb-10"
+            >
+              Building accessible, performant web experiences. 
+              Focused on <span className="font-semibold">Full-Stack Development</span> and <span className="font-semibold">Machine Learning</span>.
+            </motion.p>
+
+            <motion.div 
+              variants={fadeInUp}
+              className="flex items-center justify-center md:justify-start gap-6"
+            >
+              <SocialLink href="https://github.com/Splash791" icon={<Github size={22} />} />
+              <SocialLink href="https://linkedin.com/in/tyler-quach-" icon={<Linkedin size={22} />} />
+              <SocialLink href="mailto:tylerquach17@gmail.com" icon={<Mail size={22} />} />
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
     </main>
+  )
+}
+
+function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
+  return (
+    <Link 
+      href={href} 
+      target="_blank"
+      className="p-3 rounded-xl text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors"
+      aria-label={href.includes('github') ? 'GitHub' : href.includes('linkedin') ? 'LinkedIn' : 'Email'}
+    >
+      {icon}
+    </Link>
   )
 }
