@@ -72,21 +72,24 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0], index
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.1 }}
-      whileHover={{ y: -4 }}
-      className="group relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden hover:shadow-xl transition-all"
+      transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      className="group relative rounded-3xl border-2 border-zinc-200/60 dark:border-zinc-800/60 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm overflow-hidden hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-2xl transition-all duration-500"
     >
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/5 transition-all duration-500 pointer-events-none" />
+      
       {/* Project Image */}
-      <div className="relative w-full h-64 overflow-hidden bg-zinc-100 dark:bg-zinc-950 flex items-center justify-center">
+      <div className="relative w-full h-64 overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-950 dark:to-zinc-900 flex items-center justify-center">
         {!hasError ? (
           <Image
             src={project.src}
             alt={project.title}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
             onError={() => setHasError(true)}
             sizes="(max-width: 768px) 100vw, 50vw"
             priority={index < 2}
@@ -97,15 +100,16 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0], index
             <p className="text-[10px] font-mono tracking-widest uppercase">Image Not Found</p>
           </div>
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+      <div className="p-6 relative z-10">
+        <h3 className="text-2xl font-bold mb-3 text-zinc-900 dark:text-white group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-500 dark:group-hover:from-blue-400 dark:group-hover:to-blue-300 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
           {project.title}
         </h3>
 
-        <p className="text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed">
+        <p className="text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed text-base">
           {project.description}
         </p>
 
@@ -113,7 +117,7 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0], index
           {project.tech.map((t) => (
             <span
               key={t}
-              className="px-3 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300"
+              className="px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/50 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200/50 dark:border-zinc-700/50 hover:border-zinc-300 dark:hover:border-zinc-600 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all"
             >
               {t}
             </span>
@@ -124,10 +128,10 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0], index
           href={project.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-zinc-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/link"
         >
           View Project
-          <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <ArrowUpRight size={16} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
         </a>
       </div>
     </motion.div>
@@ -136,20 +140,32 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0], index
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 pb-20 pt-32 transition-colors">
+    <main className="min-h-screen bg-gradient-to-br from-white via-zinc-50/50 to-white dark:from-zinc-950 dark:via-zinc-900/50 dark:to-zinc-950 text-zinc-900 dark:text-zinc-50 pb-24 pt-32 transition-colors relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/8 dark:bg-blue-400/8 rounded-full blur-3xl" />
+      </div>
+
       <Navbar />
 
-      <header className="mx-auto max-w-6xl px-6 mb-16">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 text-zinc-900 dark:text-white">
-          Portfolio
-        </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-          A collection of projects exploring the boundaries of design and development.
-        </p>
+      <header className="mx-auto max-w-7xl px-6 mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 dark:from-white dark:via-zinc-100 dark:to-white bg-clip-text text-transparent">
+            Portfolio
+          </h1>
+          <p className="text-xl sm:text-2xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
+            A collection of projects exploring the boundaries of design and development.
+          </p>
+        </motion.div>
       </header>
 
-      <section className="mx-auto max-w-6xl px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="mx-auto max-w-7xl px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           {allProjects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}

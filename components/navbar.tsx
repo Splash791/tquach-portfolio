@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Home, Briefcase, FileText, Images, User } from 'lucide-react'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 export default function Navbar() {
+  const pathname = usePathname()
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/about', label: 'About', icon: User },
@@ -16,26 +17,35 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 bg-neutral-900/80 backdrop-blur-sm border-b border-neutral-700"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex gap-2">
+          <div className="flex items-center gap-8">
             {navItems.map((item) => {
               const Icon = item.icon
+              const isActive = pathname === item.href
               return (
-          <Link key={item.href} href={item.href}>
-            <motion.div
-              whileHover={{ y: -1 }}
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors"
-            >
-              <Icon className="h-4 w-4" />
-              <span>{item.label}</span>
-            </motion.div>
-          </Link>
+                <Link key={item.href} href={item.href}>
+                  <motion.div
+                    whileHover={{ y: -1 }}
+                    className="relative flex items-center gap-2 text-sm font-medium transition-colors"
+                  >
+                    <span className={`${isActive ? 'text-neutral-100' : 'text-neutral-400 hover:text-neutral-200'}`}>
+                      {item.label}
+                    </span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeIndicator"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-neutral-100"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                  </motion.div>
+                </Link>
               )
             })}
           </div>

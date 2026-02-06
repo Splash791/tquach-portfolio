@@ -45,14 +45,15 @@ function ImageCard({ photo, index }: { photo: typeof photos[0], index: number })
   return (
     <motion.div
       variants={itemVariants}
-      className={`group relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 hover:shadow-xl transition-all ${photo.colSpan} ${photo.rowSpan}`}
+      whileHover={{ scale: 1.02, zIndex: 10 }}
+      className={`group relative overflow-hidden rounded-2xl border-2 border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-2xl transition-all duration-500 ${photo.colSpan} ${photo.rowSpan}`}
     >
       {!error ? (
         <Image
           src={photo.src}
           alt={photo.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          className="object-cover group-hover:scale-110 transition-transform duration-700"
           sizes="(max-width: 768px) 50vw, 33vw"
           onError={() => setError(true)}
           priority={index < 4}
@@ -64,11 +65,18 @@ function ImageCard({ photo, index }: { photo: typeof photos[0], index: number })
         </div>
       )}
       
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
       {/* Overlay Title on Hover */}
-      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-        <p className="text-white text-xs font-medium translate-y-2 group-hover:translate-y-0 transition-transform">
+      <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <motion.p
+          initial={{ y: 10, opacity: 0 }}
+          whileHover={{ y: 0, opacity: 1 }}
+          className="text-white text-sm font-semibold"
+        >
           {photo.title}
-        </p>
+        </motion.p>
       </div>
     </motion.div>
   )
@@ -76,24 +84,36 @@ function ImageCard({ photo, index }: { photo: typeof photos[0], index: number })
 
 export default function PhotoBookPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 pb-20 pt-32 transition-colors">
+    <main className="min-h-screen bg-gradient-to-br from-white via-zinc-50/50 to-white dark:from-zinc-950 dark:via-zinc-900/50 dark:to-zinc-950 text-zinc-900 dark:text-zinc-50 pb-24 pt-32 transition-colors relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-500/8 dark:bg-blue-400/8 rounded-full blur-3xl" />
+      </div>
+
       <Navbar />
 
-      <header className="mx-auto max-w-6xl px-6 mb-16">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 text-zinc-900 dark:text-white">
-          Photo Book
-        </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-          A collection of photos from the past few years of my life.
-        </p>
+      <header className="mx-auto max-w-7xl px-6 mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 dark:from-white dark:via-zinc-100 dark:to-white bg-clip-text text-transparent">
+            Photo Book
+          </h1>
+          <p className="text-xl sm:text-2xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
+            A collection of photos from the past few years of my life.
+          </p>
+        </motion.div>
       </header>
 
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="mx-auto max-w-7xl px-6">
         <motion.section
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[180px]"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px]"
         >
           {photos.map((photo, i) => (
             <ImageCard key={photo.id} photo={photo} index={i} />
