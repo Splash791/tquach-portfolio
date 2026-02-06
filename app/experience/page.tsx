@@ -8,49 +8,58 @@ import Navbar from '@/components/navbar'
 const experience = [
   {
     id: 1,
+    role: 'Mobile Development Intern',
+    company: 'BVR ST STUDIO',
+    period: 'Jan 2026 - Present',
+    location: 'Portland, OR',
+    focus: 'Researching AI hallucinations and model reliability.',
+    // type: 'Research',
+  },
+  {
+    id: 2,
     role: 'Machine Learning Research Assistant',
     company: 'Oregon State University',
     period: 'Dec 2025 - Present',
     location: 'Corvallis, OR',
     focus: 'Researching AI hallucinations and model reliability.',
-    type: 'Research',
+    // type: 'Research',
   },
   {
-    id: 2,
+    id: 3,
     role: 'Undergraduate Learning Assistant',
     company: 'Oregon State University',
     period: 'Dec 2025 - Present',
     location: 'Corvallis, OR',
     focus: 'Teaching data structures and algorithms to 30+ students.',
-    type: 'Academic',
+    // type: 'Academic',
   },
   {
-    id: 3,
+    id: 4,
     role: 'Community Relations Rep',
     company: 'Oregon State University',
     period: 'May 2025 - Present',
     location: 'Corvallis, OR',
     focus: 'Event planning for 300+ attendees.',
-    type: 'Leadership',
+    // type: 'Leadership',
   },
-  {
-    id: 4,
-    role: 'Software Engineering Intern',
-    company: 'Tech Company',
-    period: 'Jun 2024 - Aug 2024',
-    location: 'Remote',
-    focus: 'Developed full-stack features using React and Node.js.',
-    type: 'Internship',
-  },
-  {
-    id: 5,
-    role: 'Freelance Web Developer',
-    company: 'Self-Employed',
-    period: 'Jan 2023 - Present',
-    location: 'Remote',
-    focus: 'Building custom web solutions for clients.',
-    type: 'Freelance',
-  },
+  // {
+  //   id: 4,
+  //   role: 'Software Engineering Intern',
+  //   company: 'Tech Company',
+  //   period: 'Jun 2024 - Aug 2024',
+  //   location: 'Remote',
+  //   focus: 'Developed full-stack features using React and Node.js.',
+  //   type: 'Internship',
+  // },
+  // {
+  //   id: 5,
+  //   role: 'Freelance Web Developer',
+  //   company: 'Self-Employed',
+  //   period: 'Jan 2023 - Present',
+  //   location: 'Remote',
+  //   focus: 'Building custom web solutions for clients.',
+  //   type: 'Freelance',
+  // },
 ]
 
 export default function ExperiencePage() {
@@ -86,9 +95,9 @@ export default function ExperiencePage() {
                     <h3 className="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {exp.role}
                     </h3>
-                    <span className="px-2.5 py-1 rounded-md bg-blue-100 dark:bg-blue-900/30 text-xs font-medium text-blue-700 dark:text-blue-300">
+                    {/* <span className="px-2.5 py-1 rounded-md bg-blue-100 dark:bg-blue-900/30 text-xs font-medium text-blue-700 dark:text-blue-300">
                       {exp.type}
-                    </span>
+                    </span> */}
                   </div>
                   <p className="text-zinc-700 dark:text-zinc-300 font-semibold mb-2">
                     {exp.company}

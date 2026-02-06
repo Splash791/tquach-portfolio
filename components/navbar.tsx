@@ -27,19 +27,18 @@ export default function Navbar() {
             {navItems.map((item) => {
               const Icon = item.icon
               return (
-                <Link key={item.href} href={item.href}>
-                  <motion.div
-                    whileHover={{ y: -1 }}
-                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors"
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </motion.div>
-                </Link>
+          <Link key={item.href} href={item.href}>
+            <motion.div
+              whileHover={{ y: -1 }}
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors"
+            >
+              <Icon className="h-4 w-4" />
+              <span>{item.label}</span>
+            </motion.div>
+          </Link>
               )
             })}
           </div>
-          <ThemeToggle />
         </div>
       </div>
     </motion.nav>
