@@ -3,10 +3,13 @@
 @layer base {
   html, body {
     height: 100%;
+    min-height: 100vh; /* Ensure background extends to full viewport height */
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    background-size: cover; /* Ensure background covers the entire viewport */
+    background-attachment: fixed; /* Keep background fixed during scroll */
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -19,8 +22,48 @@
 
   /* Smooth transitions for theme changes */
   * {
-    transition-property: background-color, border-color, color, fill, stroke;
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
+  }
+
+  /* Ensure images and sections are responsive */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  section {
+    padding: 1rem;
+    min-height: 100vh; /* Ensure sections extend to full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+  }
+
+  /* Typography adjustments for smaller screens */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+  }
+
+  p {
+    word-wrap: break-word;
+    line-height: 1.6;
+  }
+
+  /* Extend background for all sections */
+  main {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Ensure background stays fixed during scroll */
+    min-height: 100vh; /* Extend background to cover full height */
+    padding-bottom: 5rem; /* Add extra space at the bottom */
+  }
+
+  /* Additional spacing for extended content */
+  footer {
+    margin-top: auto;
+    padding: 2rem 1rem;
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle footer background */
   }
 }
