@@ -8,7 +8,7 @@ import React from 'react'
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white via-zinc-50/50 to-white dark:from-zinc-950 dark:via-zinc-900/50 dark:to-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors relative overflow-hidden flex items-center justify-center px-4 sm:px-6">
+    <main className="min-h-screen bg-gradient-to-br from-white via-zinc-50/50 to-white dark:from-zinc-950 dark:via-zinc-900/50 dark:to-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors relative overflow-hidden flex flex-col pt-12 sm:pt-16">
       {/* Background decorations */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-0 w-[20rem] h-[20rem] sm:w-[30rem] sm:h-[30rem] bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-3xl" />
@@ -54,20 +54,20 @@ export default function HomePage() {
           {/* Social Links */}
           <div className="flex items-center justify-center md:justify-start gap-6">
             <SocialLink
-              href="https://github.com/tylerquach"
+              href="https://github.com/Splash791"
               label="GitHub"
               icon={<Github size={24} />}
             />
             <SocialLink
-              href="https://linkedin.com/in/tylerquach"
+              href="https://www.linkedin.com/in/tyler-quach-/"
               label="LinkedIn"
               icon={<Linkedin size={24} />}
             />
-            <SocialLink
-              href="mailto:tylerquach@example.com"
+            {/* <SocialLink
+              href="mailto:tylerquach17@gmail.com"
               label="Email"
               icon={<Mail size={24} />}
-            />
+            /> */}
           </div>
         </motion.div>
       </section>
@@ -87,14 +87,13 @@ function SocialLink({
   return (
     <a
       href={href}
-      target={href.startsWith('http') ? '_blank' : undefined}
-      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
-      className="group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-zinc-100 dark:bg-zinc-700/60 border border-zinc-200 dark:border-zinc-600 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
+      className="text-zinc-900 dark:text-zinc-50 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
     >
-      <span className="group-hover:scale-110 transition-transform duration-300">
-        {icon}
-      </span>
+      {icon}
     </a>
   )
 }
+   
